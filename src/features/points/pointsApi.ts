@@ -9,7 +9,7 @@ export type AddPointArg = {
   x: number
   y: number
   documentType: DocumentTypeId
-  screenshot?: string
+  name: string
 }
 
 export const pointsApi = createApi({

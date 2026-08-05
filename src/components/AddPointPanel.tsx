@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useAddPointMutation } from '../features/points/pointsApi'
 import type { MapId } from '../data/maps'
 import {
   getDocumentTypesForMap,
   type DocumentTypeId,
 } from '../data/documentTypes'
+import { screenshotDir } from '../lib/screenshotPath'
 
 export type DraftCoords = { x: number; y: number }
 
@@ -15,20 +16,10 @@ type Props = {
   onSaved: () => void
 }
 
-function readFileAsDataUrl(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(String(reader.result))
-    reader.onerror = () => reject(reader.error ?? new Error('read failed'))
-    reader.readAsDataURL(file)
-  })
-}
-
 export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
   const [documentType, setDocumentType] = useState<DocumentTypeId | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
+  const [name, setName] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const fileRef = useRef<HTMLInputElement>(null)
   const [addPoint, { isLoading }] = useAddPointMutation()
 
   const availableTypes = useMemo(
@@ -38,9 +29,8 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
 
   useEffect(() => {
     setDocumentType(null)
-    setPreview(null)
+    setName('')
     setError(null)
-    if (fileRef.current) fileRef.current.value = ''
   }, [draft?.x, draft?.y, mapId])
 
   useEffect(() => {
@@ -54,21 +44,6 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
 
   if (!draft) return null
 
-  async function onFileChange(file: File | undefined) {
-    setError(null)
-    if (!file) {
-      setPreview(null)
-      return
-    }
-    if (!file.type.startsWith('image/')) {
-      setError('Нужен файл изображения')
-      setPreview(null)
-      return
-    }
-    const dataUrl = await readFileAsDataUrl(file)
-    setPreview(dataUrl)
-  }
-
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
     setError(null)
@@ -77,17 +52,21 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
       setError('Выберите тип документа')
       return
     }
+    const trimmed = name.trim()
+    if (!trimmed) {
+      setError('Укажите название точки')
+      return
+    }
     try {
       await addPoint({
         mapId,
         x: draft.x,
         y: draft.y,
         documentType,
-        screenshot: preview ?? undefined,
+        name: trimmed,
       }).unwrap()
       setDocumentType(null)
-      setPreview(null)
-      if (fileRef.current) fileRef.current.value = ''
+      setName('')
       onSaved()
     } catch (err) {
       setError(String(err))
@@ -124,31 +103,20 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
           </div>
         </fieldset>
         <label className="field">
-          <span>
-            Скриншот <em className="field__optional">(необязательно)</em>
-          </span>
+          <span>Название точки</span>
           <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            onChange={(e) => void onFileChange(e.target.files?.[0])}
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Например: офис 2 этаж"
+            autoFocus
           />
         </label>
-        {preview ? (
-          <div className="add-panel__preview-wrap">
-            <img className="add-panel__preview" src={preview} alt="Превью" />
-            <button
-              type="button"
-              className="btn btn--ghost"
-              onClick={() => {
-                setPreview(null)
-                if (fileRef.current) fileRef.current.value = ''
-              }}
-            >
-              Убрать картинку
-            </button>
-          </div>
-        ) : null}
+        <p className="add-panel__hint">
+          Скриншот: файл с таким же именем в{' '}
+          <code>{screenshotDir(mapId)}/</code>
+          {' '}(png / jpg / webp)
+        </p>
         {error ? <p className="add-panel__error">{error}</p> : null}
         <div className="add-panel__actions">
           <button type="button" className="btn btn--ghost" onClick={onCancel}>

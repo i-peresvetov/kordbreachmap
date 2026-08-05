@@ -8,7 +8,7 @@ export function ExportPointsButton() {
     const json = exportPointsJson()
     try {
       await navigator.clipboard.writeText(json)
-      setStatus('Скопировано — вставь в src/data/points.json (без скринов)')
+      setStatus('Скопировано — вставь в src/data/points.json')
     } catch {
       downloadFile(json)
       setStatus('Буфер недоступен — скачан points.json')

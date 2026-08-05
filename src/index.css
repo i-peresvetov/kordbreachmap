@@ -191,8 +191,16 @@ select {
   flex-shrink: 0;
 }
 
-.point-popup__type {
+.point-popup__name {
   font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.point-popup__type {
+  font-weight: 500;
+  font-size: 0.85em;
+  color: #444;
   line-height: 1.25;
 }
 
@@ -399,6 +407,19 @@ select {
   border-radius: 6px;
   background: var(--bg);
   border: 1px solid var(--border);
+}
+
+.add-panel__hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.add-panel__hint code {
+  font-size: 0.78rem;
+  color: #c8d0e0;
+  word-break: break-all;
 }
 
 .add-panel__error {

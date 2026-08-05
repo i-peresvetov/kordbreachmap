@@ -12,40 +12,38 @@ export type MapPoint = {
   x: number
   y: number
   documentType: DocumentTypeId
-  /** Optional screenshot as data URL (local only; stripped on repo export). */
-  screenshot?: string
+  /** Point title; screenshot file in public/screenshots/{mapId}/{name}.{ext} */
+  name: string
   createdAt: string
 }
 
-export const POINTS_STORAGE_KEY = 'tarkov-maps-points'
+export const POINTS_STORAGE_KEY = 'tarkov-maps-points-v2'
 
 function isMapPoint(value: unknown): value is MapPoint {
   if (!value || typeof value !== 'object') return false
   const p = value as Record<string, unknown>
-  const screenshotOk =
-    p.screenshot === undefined || typeof p.screenshot === 'string'
   return (
     typeof p.id === 'string' &&
     typeof p.mapId === 'string' &&
     typeof p.x === 'number' &&
     typeof p.y === 'number' &&
     isDocumentTypeId(p.documentType) &&
-    typeof p.createdAt === 'string' &&
-    screenshotOk
+    typeof p.name === 'string' &&
+    p.name.trim().length > 0 &&
+    typeof p.createdAt === 'string'
   )
 }
 
 function normalizePoint(p: MapPoint): MapPoint {
-  const point: MapPoint = {
+  return {
     id: p.id,
     mapId: p.mapId,
     x: p.x,
     y: p.y,
     documentType: p.documentType,
+    name: p.name.trim(),
     createdAt: p.createdAt,
   }
-  if (p.screenshot) point.screenshot = p.screenshot
-  return point
 }
 
 function readAll(): MapPoint[] {
@@ -82,13 +80,17 @@ export function addPoint(
   if (!isDocumentTypeAllowedOnMap(point.documentType, point.mapId)) {
     throw new Error('Этот тип документа недоступен на выбранной карте')
   }
+  const name = point.name.trim()
+  if (!name) {
+    throw new Error('Укажите название точки')
+  }
   const record = normalizePoint({
     id: point.id ?? crypto.randomUUID(),
     mapId: point.mapId,
     x: point.x,
     y: point.y,
     documentType: point.documentType,
-    screenshot: point.screenshot,
+    name,
     createdAt: point.createdAt ?? new Date().toISOString(),
   })
   const all = readAll()
@@ -102,15 +104,16 @@ export function deletePoint(id: string): string {
   return id
 }
 
-/** JSON for src/data/points.json — without screenshots (repo-friendly). */
+/** Pretty JSON for pasting into src/data/points.json */
 export function exportPointsJson(): string {
   const forRepo = getAllPoints().map(
-    ({ id, mapId, x, y, documentType, createdAt }) => ({
+    ({ id, mapId, x, y, documentType, name, createdAt }) => ({
       id,
       mapId,
       x,
       y,
       documentType,
+      name,
       createdAt,
     }),
   )

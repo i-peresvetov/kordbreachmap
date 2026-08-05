@@ -6,6 +6,7 @@ import { getDocumentType } from '../data/documentTypes'
 import { wikiToLatLng } from '../lib/mapCoords'
 import { useDeletePointMutation } from '../features/points/pointsApi'
 import { ImageLightbox } from './ImageLightbox'
+import { PointScreenshot } from './PointScreenshot'
 
 function documentMarkerIcon(iconUrl: string) {
   return L.divIcon({
@@ -23,7 +24,7 @@ type Props = {
 
 export function PointMarker({ point }: Props) {
   const [deletePoint, { isLoading }] = useDeletePointMutation()
-  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
   const doc = getDocumentType(point.documentType)
   const icon = useMemo(() => documentMarkerIcon(doc.icon), [doc.icon])
 
@@ -34,22 +35,18 @@ export function PointMarker({ point }: Props) {
           <div className="point-popup">
             <div className="point-popup__header">
               <img className="point-popup__icon" src={doc.icon} alt="" />
-              <div className="point-popup__type">{doc.name}</div>
+              <div>
+                <div className="point-popup__name">{point.name}</div>
+                <div className="point-popup__type">{doc.name}</div>
+              </div>
             </div>
-            {point.screenshot ? (
-              <button
-                type="button"
-                className="point-popup__shot-btn"
-                title="Открыть на весь экран"
-                onClick={() => setLightboxOpen(true)}
-              >
-                <img
-                  className="point-popup__shot"
-                  src={point.screenshot}
-                  alt={doc.name}
-                />
-              </button>
-            ) : null}
+            <PointScreenshot
+              mapId={point.mapId}
+              name={point.name}
+              alt={point.name}
+              className="point-popup__shot"
+              onOpen={setLightboxSrc}
+            />
             <button
               type="button"
               className="point-popup__delete"
@@ -63,11 +60,11 @@ export function PointMarker({ point }: Props) {
           </div>
         </Popup>
       </Marker>
-      {lightboxOpen && point.screenshot ? (
+      {lightboxSrc ? (
         <ImageLightbox
-          src={point.screenshot}
-          alt={doc.name}
-          onClose={() => setLightboxOpen(false)}
+          src={lightboxSrc}
+          alt={point.name}
+          onClose={() => setLightboxSrc(null)}
         />
       ) : null}
     </>
