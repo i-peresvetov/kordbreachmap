@@ -205,5 +205,95 @@
     "documentType": "letter",
     "name": "База МЧС в контейнере с трупом",
     "createdAt": "2026-08-05T21:46:57.324Z"
+  },
+  {
+    "id": "a77e219c-9989-4914-bfd9-2a5a7877be9c",
+    "mapId": "woods",
+    "x": 5855.5,
+    "y": 3294.5,
+    "documentType": "letter",
+    "name": "На 2 этаже Старой Лесопилки",
+    "createdAt": "2026-08-05T21:49:12.058Z"
+  },
+  {
+    "id": "57755f29-39f1-4a2b-8b90-ed78d7fa1290",
+    "mapId": "woods",
+    "x": 5701.5,
+    "y": 3153,
+    "documentType": "letter",
+    "name": "На старой лесопилке в здании с антеной",
+    "createdAt": "2026-08-05T22:04:56.631Z"
+  },
+  {
+    "id": "398b9d0f-34a1-4be2-a117-da67e982187f",
+    "mapId": "woods",
+    "x": 1934,
+    "y": 4390.5,
+    "documentType": "letter",
+    "name": "Лагерь USEC (ближайший к дороге), на пластиковом стуле за ближайшими мешками с песком",
+    "createdAt": "2026-08-05T22:05:30.133Z"
+  },
+  {
+    "id": "95bdaef2-9729-4537-8715-86fb2a3adac4",
+    "mapId": "woods",
+    "x": 2119,
+    "y": 2650.25,
+    "documentType": "letter",
+    "name": "В железной будке на КПП USEC",
+    "createdAt": "2026-08-05T22:05:49.963Z"
+  },
+  {
+    "id": "5e7fe56b-8edc-433e-b5d6-7659bc99546d",
+    "mapId": "woods",
+    "x": 1955.75,
+    "y": 4406.5,
+    "documentType": "letter",
+    "name": "Лагерь USEC на палете в лежаке",
+    "createdAt": "2026-08-05T22:06:20.908Z"
+  },
+  {
+    "id": "e38ee86a-c37c-4845-935e-fb0e3c3b5bcf",
+    "mapId": "woods",
+    "x": 1899,
+    "y": 4800.5,
+    "documentType": "letter",
+    "name": "Лагерь USEC на столе с трупом",
+    "createdAt": "2026-08-05T22:06:45.165Z"
+  },
+  {
+    "id": "80fbabbc-d366-45ba-91fd-daa8bc5a267e",
+    "mapId": "woods",
+    "x": 4445.75,
+    "y": 2426,
+    "documentType": "classified",
+    "name": "В упавшем самолёте",
+    "createdAt": "2026-08-05T22:08:39.142Z"
+  },
+  {
+    "id": "f2e11783-39d4-46ec-925a-e7e2ea35afc0",
+    "mapId": "woods",
+    "x": 5728.25,
+    "y": 3320.25,
+    "documentType": "classified",
+    "name": "Железная времянка рядом со Старой Лесопилкой",
+    "createdAt": "2026-08-05T22:09:12.348Z"
+  },
+  {
+    "id": "16f2a818-2f3c-4a41-bb2a-1fcfddd6999a",
+    "mapId": "woods",
+    "x": 4628,
+    "y": 4292,
+    "documentType": "classified",
+    "name": "Подземный бункер возле деревни",
+    "createdAt": "2026-08-05T22:09:44.316Z"
+  },
+  {
+    "id": "d5af990b-a2c6-4c85-b6cf-4463c2c53231",
+    "mapId": "woods",
+    "x": 2598,
+    "y": 5789.5,
+    "documentType": "classified",
+    "name": "2 этаж времянки рядом с вышкой связи",
+    "createdAt": "2026-08-05T22:10:01.354Z"
   }
 ]

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Marker, Popup, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { isRepoPoint, type MapPoint } from '../lib/pointsStorage'
@@ -20,18 +20,59 @@ function documentMarkerIcon(iconUrl: string) {
 
 type Props = {
   point: MapPoint
+  selected: boolean
+  shotOpen: boolean
+  onSelect: () => void
+  onDeselect: () => void
+  onOpenShot: () => void
+  onCloseShot: () => void
 }
 
-export function PointMarker({ point }: Props) {
+export function PointMarker({
+  point,
+  selected,
+  shotOpen,
+  onSelect,
+  onDeselect,
+  onOpenShot,
+  onCloseShot,
+}: Props) {
+  const markerRef = useRef<L.Marker | null>(null)
   const [deletePoint, { isLoading }] = useDeletePointMutation()
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
+  const [shotSrc, setShotSrc] = useState<string | null>(null)
   const doc = getDocumentType(point.documentType)
   const icon = useMemo(() => documentMarkerIcon(doc.icon), [doc.icon])
   const canDelete = !isRepoPoint(point.id)
 
+  useEffect(() => {
+    const marker = markerRef.current
+    if (!marker) return
+    if (selected) {
+      marker.openPopup()
+    } else {
+      marker.closePopup()
+    }
+  }, [selected])
+
+  useEffect(() => {
+    if (!selected) setShotSrc(null)
+  }, [selected])
+
+  useEffect(() => {
+    if (shotOpen && canDelete) onCloseShot()
+  }, [shotOpen, canDelete, onCloseShot])
+
   return (
     <>
-      <Marker position={wikiToLatLng(point.x, point.y)} icon={icon}>
+      <Marker
+        ref={markerRef}
+        position={wikiToLatLng(point.x, point.y)}
+        icon={icon}
+        eventHandlers={{
+          popupopen: () => onSelect(),
+          popupclose: () => onDeselect(),
+        }}
+      >
         <Tooltip direction="top" offset={[0, -18]} opacity={1} className="point-tooltip">
           {point.name}
         </Tooltip>
@@ -50,7 +91,12 @@ export function PointMarker({ point }: Props) {
                 name={point.name}
                 alt={point.name}
                 className="point-popup__shot"
-                onOpen={setLightboxSrc}
+                onReady={setShotSrc}
+                onMissing={() => {
+                  setShotSrc(null)
+                  if (shotOpen) onCloseShot()
+                }}
+                onOpen={onOpenShot}
               />
             ) : null}
             {canDelete ? (
@@ -68,11 +114,11 @@ export function PointMarker({ point }: Props) {
           </div>
         </Popup>
       </Marker>
-      {lightboxSrc ? (
+      {shotOpen && shotSrc ? (
         <ImageLightbox
-          src={lightboxSrc}
+          src={shotSrc}
           alt={point.name}
-          onClose={() => setLightboxSrc(null)}
+          onClose={onCloseShot}
         />
       ) : null}
     </>

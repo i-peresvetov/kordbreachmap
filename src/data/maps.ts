@@ -113,6 +113,10 @@ export const MAPS: TarkovMap[] = [
   },
 ]
 
+export function isMapId(value: string): value is MapId {
+  return MAPS.some((m) => m.id === value)
+}
+
 export function getMapById(id: MapId): TarkovMap {
   const map = MAPS.find((m) => m.id === id)
   if (!map) throw new Error(`Unknown map: ${id}`)

@@ -23,6 +23,12 @@ type Props = {
   points: MapPoint[]
   adding: boolean
   draft: DraftPlacement | null
+  selectedPointId: string | null
+  shotOpen: boolean
+  onSelectPoint: (id: string) => void
+  onDeselectPoint: (id: string) => void
+  onOpenShot: (id: string) => void
+  onCloseShot: (id: string) => void
   onMapClick: (coords: DraftCoords) => void
 }
 
@@ -70,7 +76,19 @@ function MapController({
   return null
 }
 
-export function MapView({ map, points, adding, draft, onMapClick }: Props) {
+export function MapView({
+  map,
+  points,
+  adding,
+  draft,
+  selectedPointId,
+  shotOpen,
+  onSelectPoint,
+  onDeselectPoint,
+  onOpenShot,
+  onCloseShot,
+  onMapClick,
+}: Props) {
   const bounds = useMemo(() => mapLatLngBounds(map), [map])
   const center = useMemo(
     () => wikiToLatLng(map.width / 2, map.height / 2),
@@ -93,7 +111,16 @@ export function MapView({ map, points, adding, draft, onMapClick }: Props) {
       <ImageOverlay url={map.image} bounds={bounds} />
       <MapController map={map} adding={adding} onMapClick={onMapClick} />
       {points.map((p) => (
-        <PointMarker key={p.id} point={p} />
+        <PointMarker
+          key={p.id}
+          point={p}
+          selected={selectedPointId === p.id}
+          shotOpen={shotOpen && selectedPointId === p.id}
+          onSelect={() => onSelectPoint(p.id)}
+          onDeselect={() => onDeselectPoint(p.id)}
+          onOpenShot={() => onOpenShot(p.id)}
+          onCloseShot={() => onCloseShot(p.id)}
+        />
       ))}
       {draft ? (
         <DraftPointMarker
