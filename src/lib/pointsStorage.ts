@@ -46,13 +46,13 @@ function normalizePoint(p: MapPoint): MapPoint {
   }
 }
 
-function readAll(): MapPoint[] {
+function loadSeed(): MapPoint[] {
+  return (seedPoints as MapPoint[]).filter(isMapPoint).map(normalizePoint)
+}
+
+function loadLocal(): MapPoint[] {
   const raw = localStorage.getItem(POINTS_STORAGE_KEY)
-  if (raw === null) {
-    const seeded = (seedPoints as MapPoint[]).filter(isMapPoint).map(normalizePoint)
-    writeAll(seeded)
-    return seeded
-  }
+  if (raw === null) return []
   try {
     const parsed: unknown = JSON.parse(raw)
     if (!Array.isArray(parsed)) return []
@@ -60,6 +60,29 @@ function readAll(): MapPoint[] {
   } catch {
     return []
   }
+}
+
+/**
+ * Repo points.json is the base. localStorage adds/overrides only for ids
+ * that are not in the seed — wait, user edits local then exports to json.
+ *
+ * Better: seed always applied (by id, seed wins). Local-only points
+ * (ids not present in seed) are kept so in-progress work isn't lost.
+ */
+function mergePoints(seed: MapPoint[], local: MapPoint[]): MapPoint[] {
+  const byId = new Map<string, MapPoint>()
+  for (const p of local) byId.set(p.id, p)
+  for (const p of seed) byId.set(p.id, p) // seed wins
+  return Array.from(byId.values())
+}
+
+function readAll(): MapPoint[] {
+  const merged = mergePoints(loadSeed(), loadLocal())
+  const json = JSON.stringify(merged)
+  if (localStorage.getItem(POINTS_STORAGE_KEY) !== json) {
+    localStorage.setItem(POINTS_STORAGE_KEY, json)
+  }
+  return merged
 }
 
 function writeAll(points: MapPoint[]): void {
