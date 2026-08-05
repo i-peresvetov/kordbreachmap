@@ -86,9 +86,9 @@ export const MAPS: TarkovMap[] = [
   {
     id: 'terminal',
     name: 'Ледокол',
-    image: assetUrl('maps/terminal.png'),
-    width: 11520,
-    height: 6480,
+    image: assetUrl('maps/terminal.svg'),
+    width: 1600,
+    height: 900,
   },
   {
     id: 'the-lab',

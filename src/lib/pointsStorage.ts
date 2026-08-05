@@ -135,9 +135,13 @@ export function deletePoint(id: string): string {
   return id
 }
 
-/** Pretty JSON for pasting into src/data/points.json */
+export function getCustomPoints(): MapPoint[] {
+  return getAllPoints().filter((p) => !isRepoPoint(p.id))
+}
+
+/** Pretty JSON of only locally added points (not already in the repo seed). */
 export function exportPointsJson(): string {
-  const forRepo = getAllPoints().map(
+  const custom = getCustomPoints().map(
     ({ id, mapId, x, y, documentType, name, createdAt }) => ({
       id,
       mapId,
@@ -148,5 +152,5 @@ export function exportPointsJson(): string {
       createdAt,
     }),
   )
-  return `${JSON.stringify(forRepo, null, 2)}\n`
+  return `${JSON.stringify(custom, null, 2)}\n`
 }

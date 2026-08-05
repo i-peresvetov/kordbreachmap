@@ -12,12 +12,20 @@ export type DraftCoords = { x: number; y: number }
 type Props = {
   mapId: MapId
   draft: DraftCoords | null
+  documentType: DocumentTypeId | null
+  onDocumentTypeChange: (type: DocumentTypeId | null) => void
   onCancel: () => void
   onSaved: () => void
 }
 
-export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
-  const [documentType, setDocumentType] = useState<DocumentTypeId | null>(null)
+export function AddPointPanel({
+  mapId,
+  draft,
+  documentType,
+  onDocumentTypeChange,
+  onCancel,
+  onSaved,
+}: Props) {
   const [name, setName] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [addPoint, { isLoading }] = useAddPointMutation()
@@ -28,7 +36,6 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
   )
 
   useEffect(() => {
-    setDocumentType(null)
     setName('')
     setError(null)
   }, [draft?.x, draft?.y, mapId])
@@ -38,9 +45,9 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
       documentType &&
       !availableTypes.some((t) => t.id === documentType)
     ) {
-      setDocumentType(null)
+      onDocumentTypeChange(null)
     }
-  }, [availableTypes, documentType])
+  }, [availableTypes, documentType, onDocumentTypeChange])
 
   if (!draft) return null
 
@@ -65,7 +72,6 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
         documentType,
         name: trimmed,
       }).unwrap()
-      setDocumentType(null)
       setName('')
       onSaved()
     } catch (err) {
@@ -94,7 +100,7 @@ export function AddPointPanel({ mapId, draft, onCancel, onSaved }: Props) {
                   aria-label={type.name}
                   data-tooltip={type.name}
                   className={`doc-type-option${selected ? ' is-selected' : ''}`}
-                  onClick={() => setDocumentType(type.id)}
+                  onClick={() => onDocumentTypeChange(type.id)}
                 >
                   <img src={type.icon} alt="" className="doc-type-option__icon" />
                 </button>

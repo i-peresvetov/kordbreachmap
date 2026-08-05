@@ -14,7 +14,7 @@ const MAPS = [
   { id: 'reserve', file: 'Reserve Interactive Map Base.png', ext: 'png' },
   { id: 'shoreline', file: 'Shoreline Interactive Map Base.png', ext: 'png' },
   { id: 'streets', file: 'Streets of Tarkov Interactive Map Base.png', ext: 'png' },
-  { id: 'terminal', file: 'Terminal Interactive Map Base.png', ext: 'png' },
+  // terminal: placeholder SVG in public/maps/terminal.svg (wiki image wrong)
   { id: 'the-lab', file: 'The Lab Interactive Map Base.png', ext: 'png' },
   { id: 'the-labyrinth', file: 'The Labyrinth Interactive Map Base.png', ext: 'png' },
   { id: 'woods', file: 'Woods Interactive Map Base.png', ext: 'png' },

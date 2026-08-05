@@ -8,14 +8,21 @@ import {
 import L from 'leaflet'
 import type { TarkovMap } from '../data/maps'
 import type { MapPoint } from '../lib/pointsStorage'
+import type { DocumentTypeId } from '../data/documentTypes'
 import { fitZoom, latLngToWiki, mapLatLngBounds, wikiToLatLng } from '../lib/mapCoords'
 import { PointMarker } from './PointMarker'
+import { DraftPointMarker } from './DraftPointMarker'
 import type { DraftCoords } from './AddPointPanel'
+
+export type DraftPlacement = DraftCoords & {
+  documentType: DocumentTypeId | null
+}
 
 type Props = {
   map: TarkovMap
   points: MapPoint[]
   adding: boolean
+  draft: DraftPlacement | null
   onMapClick: (coords: DraftCoords) => void
 }
 
@@ -63,7 +70,7 @@ function MapController({
   return null
 }
 
-export function MapView({ map, points, adding, onMapClick }: Props) {
+export function MapView({ map, points, adding, draft, onMapClick }: Props) {
   const bounds = useMemo(() => mapLatLngBounds(map), [map])
   const center = useMemo(
     () => wikiToLatLng(map.width / 2, map.height / 2),
@@ -88,6 +95,13 @@ export function MapView({ map, points, adding, onMapClick }: Props) {
       {points.map((p) => (
         <PointMarker key={p.id} point={p} />
       ))}
+      {draft ? (
+        <DraftPointMarker
+          x={draft.x}
+          y={draft.y}
+          documentType={draft.documentType}
+        />
+      ) : null}
     </MapContainer>
   )
 }
