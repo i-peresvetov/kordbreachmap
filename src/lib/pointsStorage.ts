@@ -46,6 +46,10 @@ function normalizePoint(p: MapPoint): MapPoint {
   }
 }
 
+function pointNameKey(mapId: MapId, name: string): string {
+  return `${mapId}::${name.trim().toLocaleLowerCase('ru')}`
+}
+
 function loadSeed(): MapPoint[] {
   return (seedPoints as MapPoint[]).filter(isMapPoint).map(normalizePoint)
 }
@@ -55,7 +59,7 @@ export function isRepoPoint(id: string): boolean {
   return loadSeed().some((p) => p.id === id)
 }
 
-function loadLocal(): MapPoint[] {
+function loadRawLocal(): MapPoint[] {
   const raw = localStorage.getItem(POINTS_STORAGE_KEY)
   if (raw === null) return []
   try {
@@ -68,30 +72,32 @@ function loadLocal(): MapPoint[] {
 }
 
 /**
- * Repo points.json is the base. localStorage adds/overrides only for ids
- * that are not in the seed — wait, user edits local then exports to json.
- *
- * Better: seed always applied (by id, seed wins). Local-only points
- * (ids not present in seed) are kept so in-progress work isn't lost.
+ * Drop local entries that are already in the repo seed (same id, or same
+ * name on the same map). Keeps only truly local in-progress points.
  */
-function mergePoints(seed: MapPoint[], local: MapPoint[]): MapPoint[] {
-  const byId = new Map<string, MapPoint>()
-  for (const p of local) byId.set(p.id, p)
-  for (const p of seed) byId.set(p.id, p) // seed wins
-  return Array.from(byId.values())
+function pruneLocalAgainstSeed(seed: MapPoint[], local: MapPoint[]): MapPoint[] {
+  const seedIds = new Set(seed.map((p) => p.id))
+  const seedNames = new Set(seed.map((p) => pointNameKey(p.mapId, p.name)))
+  return local.filter((p) => {
+    if (seedIds.has(p.id)) return false
+    if (seedNames.has(pointNameKey(p.mapId, p.name))) return false
+    return true
+  })
 }
 
-function readAll(): MapPoint[] {
-  const merged = mergePoints(loadSeed(), loadLocal())
-  const json = JSON.stringify(merged)
-  if (localStorage.getItem(POINTS_STORAGE_KEY) !== json) {
-    localStorage.setItem(POINTS_STORAGE_KEY, json)
-  }
-  return merged
-}
-
-function writeAll(points: MapPoint[]): void {
+function writeCustom(points: MapPoint[]): void {
   localStorage.setItem(POINTS_STORAGE_KEY, JSON.stringify(points))
+}
+
+/** Seed + local-only customs. Syncs localStorage to drop points now in the repo. */
+function readAll(): MapPoint[] {
+  const seed = loadSeed()
+  const localOnly = pruneLocalAgainstSeed(seed, loadRawLocal())
+  const stored = JSON.stringify(localOnly)
+  if (localStorage.getItem(POINTS_STORAGE_KEY) !== stored) {
+    writeCustom(localOnly)
+  }
+  return [...seed, ...localOnly]
 }
 
 export function getAllPoints(): MapPoint[] {
@@ -124,9 +130,9 @@ export function addPoint(
     name,
     createdAt: point.createdAt ?? new Date().toISOString(),
   })
-  const all = readAll()
-  all.push(record)
-  writeAll(all)
+  const seed = loadSeed()
+  const localOnly = pruneLocalAgainstSeed(seed, loadRawLocal())
+  writeCustom([...localOnly, record])
   return record
 }
 
@@ -134,12 +140,19 @@ export function deletePoint(id: string): string {
   if (isRepoPoint(id)) {
     throw new Error('Точки из репозитория нельзя удалить здесь')
   }
-  writeAll(readAll().filter((p) => p.id !== id))
+  const seed = loadSeed()
+  const localOnly = pruneLocalAgainstSeed(seed, loadRawLocal()).filter((p) => p.id !== id)
+  writeCustom(localOnly)
   return id
 }
 
 export function getCustomPoints(): MapPoint[] {
-  return getAllPoints().filter((p) => !isRepoPoint(p.id))
+  // Ensures prune + localStorage sync even if getAllPoints wasn't called yet
+  readAll()
+  const seed = loadSeed()
+  return pruneLocalAgainstSeed(seed, loadRawLocal()).slice().sort((a, b) =>
+    a.createdAt.localeCompare(b.createdAt),
+  )
 }
 
 export function isPointNameTaken(mapId: MapId, name: string): boolean {
@@ -153,7 +166,7 @@ export function isPointNameTaken(mapId: MapId, name: string): boolean {
 /** Removes all locally added points; keeps points from points.json. */
 export function clearCustomPoints(): number {
   const before = getCustomPoints().length
-  writeAll(loadSeed())
+  writeCustom([])
   return before
 }
 

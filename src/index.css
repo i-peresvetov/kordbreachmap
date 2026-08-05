@@ -59,9 +59,19 @@ select {
 }
 
 .toolbar__brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
   font-weight: 700;
   letter-spacing: 0.02em;
   margin-right: 8px;
+}
+
+.toolbar__version {
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 
 .toolbar__hint {

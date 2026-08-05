@@ -6,6 +6,7 @@ import { ExportPointsButton } from './components/ExportPointsButton'
 import { getMapById, type MapId } from './data/maps'
 import type { DocumentTypeId } from './data/documentTypes'
 import { useGetPointsQuery } from './features/points/pointsApi'
+import { APP_VERSION } from './version'
 
 export default function App() {
   const [mapId, setMapId] = useState<MapId>('customs')
@@ -35,7 +36,12 @@ export default function App() {
   return (
     <div className="app">
       <header className="toolbar">
-        <div className="toolbar__brand">Карты Таркова</div>
+        <div className="toolbar__brand">
+          Доки Kord Breach
+          <span className="toolbar__version" title={`Версия ${APP_VERSION}`}>
+            v{APP_VERSION}
+          </span>
+        </div>
         <MapSelector value={mapId} onChange={handleMapChange} />
         <button
           type="button"
