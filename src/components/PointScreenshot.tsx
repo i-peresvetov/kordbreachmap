@@ -25,10 +25,7 @@ export function PointScreenshot({ mapId, name, alt, className, onOpen }: Props) 
     setStatus(candidates.length === 0 ? 'missing' : 'loading')
   }, [mapId, name, candidates.length])
 
-  if (status === 'missing' || candidates.length === 0) return null
-
   const src = candidates[index]
-  if (!src) return null
 
   function onError() {
     const next = index + 1
@@ -39,6 +36,8 @@ export function PointScreenshot({ mapId, name, alt, className, onOpen }: Props) 
       setStatus('missing')
     }
   }
+
+  if (status === 'missing' || !src) return null
 
   const image = (
     <img

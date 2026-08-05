@@ -44,13 +44,15 @@ export function PointMarker({ point }: Props) {
                 <div className="point-popup__type">{doc.name}</div>
               </div>
             </div>
-            <PointScreenshot
-              mapId={point.mapId}
-              name={point.name}
-              alt={point.name}
-              className="point-popup__shot"
-              onOpen={setLightboxSrc}
-            />
+            {!canDelete ? (
+              <PointScreenshot
+                mapId={point.mapId}
+                name={point.name}
+                alt={point.name}
+                className="point-popup__shot"
+                onOpen={setLightboxSrc}
+              />
+            ) : null}
             {canDelete ? (
               <button
                 type="button"
