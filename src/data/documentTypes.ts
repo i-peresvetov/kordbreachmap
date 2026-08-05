@@ -1,4 +1,5 @@
 import type { MapId } from './maps'
+import { assetUrl } from '../lib/assetUrl'
 
 export type DocumentTypeId =
   | 'financial'
@@ -22,49 +23,49 @@ export const DOCUMENT_TYPES: DocumentType[] = [
   {
     id: 'financial',
     name: 'Финансовая документация',
-    icon: '/documents/financial.png',
+    icon: assetUrl('documents/financial.png'),
     maps: ['customs', 'streets', 'interchange'],
   },
   {
     id: 'black-folder',
     name: 'Личные данные ЧВК',
-    icon: '/documents/black-folder.png',
+    icon: assetUrl('documents/black-folder.png'),
     maps: ['reserve', 'lighthouse', 'terminal'],
   },
   {
     id: 'tan-folder',
     name: 'Проектная документация',
-    icon: '/documents/tan-folder.png',
+    icon: assetUrl('documents/tan-folder.png'),
     maps: ['factory', 'reserve', 'customs'],
   },
   {
     id: 'intel-folder',
     name: 'Чертежи и тех. документация',
-    icon: '/documents/intel-folder.png',
+    icon: assetUrl('documents/intel-folder.png'),
     maps: ['interchange', 'factory', 'the-labyrinth'],
   },
   {
     id: 'letter',
     name: 'Тестовая документация',
-    icon: '/documents/letter.png',
+    icon: assetUrl('documents/letter.png'),
     maps: ['shoreline', 'woods', 'terminal'],
   },
   {
     id: 'handbook',
     name: 'Пользовательская документация',
-    icon: '/documents/handbook.png',
+    icon: assetUrl('documents/handbook.png'),
     maps: ['ground-zero', 'streets', 'the-lab'],
   },
   {
     id: 'medical',
     name: 'Медицинская документация',
-    icon: '/documents/medical.png',
+    icon: assetUrl('documents/medical.png'),
     maps: ['the-lab', 'ground-zero', 'the-labyrinth'],
   },
   {
     id: 'classified',
     name: 'Эксплуатационная документация',
-    icon: '/documents/classified.png',
+    icon: assetUrl('documents/classified.png'),
     maps: ['shoreline', 'woods', 'lighthouse'],
   },
 ]
