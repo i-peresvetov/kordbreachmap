@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Navigate, useMatch, useNavigate, useParams } from 'react-router-dom'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { MapSelector } from '../components/MapSelector'
 import { MapView } from '../components/MapView'
 import { AddPointPanel, type DraftCoords } from '../components/AddPointPanel'
@@ -10,13 +10,27 @@ import { useGetPointsQuery } from '../features/points/pointsApi'
 import { isRepoPoint } from '../lib/pointsStorage'
 import { APP_VERSION } from '../version'
 
+function parsePointRest(rest: string | undefined): {
+  pointId: string | undefined
+  shotOpen: boolean
+} {
+  const segments = (rest ?? '').split('/').filter(Boolean)
+  const pointId = segments[0]
+  const shotOpen = segments[1] === 'shot'
+  return { pointId, shotOpen }
+}
+
 export function MapPage() {
   const navigate = useNavigate()
-  const { mapId: mapIdParam, pointId } = useParams<{
+  const location = useLocation()
+  const pathRef = useRef(location.pathname)
+  pathRef.current = location.pathname
+
+  const { mapId: mapIdParam, '*': rest } = useParams<{
     mapId: string
-    pointId?: string
+    '*': string
   }>()
-  const shotOpen = !!useMatch({ path: '/:mapId/:pointId/shot', end: true })
+  const { pointId, shotOpen } = parsePointRest(rest)
 
   const [adding, setAdding] = useState(false)
   const [draft, setDraft] = useState<DraftCoords | null>(null)
@@ -62,6 +76,8 @@ export function MapPage() {
 
   const handleMapChange = useCallback(
     (id: MapId) => {
+      // Eagerly update so popupclose on old map teardown won't navigate back
+      pathRef.current = `/${id}`
       navigate(`/${id}`)
       setAdding(false)
       clearDraft()
@@ -71,16 +87,24 @@ export function MapPage() {
 
   const onSelectPoint = useCallback(
     (id: string) => {
+      // Keep /shot if this point is already selected (popupopen must not strip it)
+      if (pointId === id) return
       navigate(`/${mapId}/${id}`)
     },
-    [navigate, mapId],
+    [navigate, mapId, pointId],
   )
 
   const onDeselectPoint = useCallback(
     (id: string) => {
-      if (pointId === id) navigate(`/${mapId}`)
+      // Read live path: popupclose on map remount must not undo navigate(`/${newMap}`)
+      const segments = pathRef.current.replace(/^\//, '').split('/').filter(Boolean)
+      const pathMapId = segments[0]
+      const pathPointId = segments[1]
+      if (pathPointId === id && pathMapId) {
+        navigate(`/${pathMapId}`)
+      }
     },
-    [navigate, mapId, pointId],
+    [navigate],
   )
 
   const onOpenShot = useCallback(

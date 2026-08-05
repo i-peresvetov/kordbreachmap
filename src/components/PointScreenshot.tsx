@@ -56,16 +56,29 @@ export function PointScreenshot({
     }
   }
 
+  function markReady() {
+    setStatus('ready')
+  }
+
+  /** Cached images may skip onLoad — check complete after mount. */
+  function bindImg(img: HTMLImageElement | null) {
+    if (!img || status === 'ready') return
+    if (img.complete && img.naturalWidth > 0) {
+      markReady()
+    }
+  }
+
   if (status === 'missing' || !src) return null
 
   const image = (
     <img
+      ref={bindImg}
       className={`point-screenshot__img${className ? ` ${className}` : ''}${
         status === 'ready' ? ' is-ready' : ''
       }`}
       src={src}
       alt={alt}
-      onLoad={() => setStatus('ready')}
+      onLoad={markReady}
       onError={onError}
     />
   )

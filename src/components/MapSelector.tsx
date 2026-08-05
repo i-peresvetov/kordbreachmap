@@ -62,7 +62,12 @@ export function MapSelector({ value, onChange }: Props) {
           <span className="map-selector__trigger-name">{selected.name}</span>
           <span className="map-selector__docs-list" aria-hidden="true">
             {selectedDocs.map((type) => (
-              <FloatingTooltip key={type.id} text={type.name} className="map-selector__doc">
+              <FloatingTooltip
+                key={type.id}
+                text={type.name}
+                placement="bottom"
+                className="map-selector__doc"
+              >
                 <img
                   src={type.icon}
                   alt=""

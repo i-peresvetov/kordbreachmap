@@ -370,6 +370,10 @@ select {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
+.floating-tooltip--bottom {
+  transform: translate(-50%, 8px);
+}
+
 .btn {
   border: 1px solid transparent;
   border-radius: 6px;

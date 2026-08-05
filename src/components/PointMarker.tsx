@@ -4,6 +4,7 @@ import L from 'leaflet'
 import { isRepoPoint, type MapPoint } from '../lib/pointsStorage'
 import { getDocumentType } from '../data/documentTypes'
 import { wikiToLatLng } from '../lib/mapCoords'
+import { resolveScreenshotUrl } from '../lib/screenshotPath'
 import { useDeletePointMutation } from '../features/points/pointsApi'
 import { ImageLightbox } from './ImageLightbox'
 import { PointScreenshot } from './PointScreenshot'
@@ -61,6 +62,20 @@ export function PointMarker({
   useEffect(() => {
     if (shotOpen && canDelete) onCloseShot()
   }, [shotOpen, canDelete, onCloseShot])
+
+  // Resolve shot URL from the route itself (works on refresh / before popup content mounts)
+  useEffect(() => {
+    if (!shotOpen || canDelete) return
+    let cancelled = false
+    void resolveScreenshotUrl(point.mapId, point.name).then((src) => {
+      if (cancelled) return
+      if (src) setShotSrc(src)
+      else onCloseShot()
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [shotOpen, canDelete, point.mapId, point.name, onCloseShot])
 
   return (
     <>

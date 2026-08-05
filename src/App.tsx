@@ -5,9 +5,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/customs" replace />} />
-      <Route path="/:mapId/:pointId/shot" element={<MapPage />} />
-      <Route path="/:mapId/:pointId" element={<MapPage />} />
-      <Route path="/:mapId" element={<MapPage />} />
+      {/* Single splat route so MapPage stays mounted across point/shot URL changes */}
+      <Route path="/:mapId/*" element={<MapPage />} />
       <Route path="*" element={<Navigate to="/customs" replace />} />
     </Routes>
   )
