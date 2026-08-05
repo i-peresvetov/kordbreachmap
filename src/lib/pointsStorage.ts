@@ -50,6 +50,11 @@ function loadSeed(): MapPoint[] {
   return (seedPoints as MapPoint[]).filter(isMapPoint).map(normalizePoint)
 }
 
+/** Points shipped in src/data/points.json cannot be deleted in the UI. */
+export function isRepoPoint(id: string): boolean {
+  return loadSeed().some((p) => p.id === id)
+}
+
 function loadLocal(): MapPoint[] {
   const raw = localStorage.getItem(POINTS_STORAGE_KEY)
   if (raw === null) return []
@@ -123,6 +128,9 @@ export function addPoint(
 }
 
 export function deletePoint(id: string): string {
+  if (isRepoPoint(id)) {
+    throw new Error('Точки из репозитория нельзя удалить здесь')
+  }
   writeAll(readAll().filter((p) => p.id !== id))
   return id
 }

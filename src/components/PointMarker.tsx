@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
-import type { MapPoint } from '../lib/pointsStorage'
+import { isRepoPoint, type MapPoint } from '../lib/pointsStorage'
 import { getDocumentType } from '../data/documentTypes'
 import { wikiToLatLng } from '../lib/mapCoords'
 import { useDeletePointMutation } from '../features/points/pointsApi'
@@ -27,6 +27,7 @@ export function PointMarker({ point }: Props) {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
   const doc = getDocumentType(point.documentType)
   const icon = useMemo(() => documentMarkerIcon(doc.icon), [doc.icon])
+  const canDelete = !isRepoPoint(point.id)
 
   return (
     <>
@@ -47,16 +48,18 @@ export function PointMarker({ point }: Props) {
               className="point-popup__shot"
               onOpen={setLightboxSrc}
             />
-            <button
-              type="button"
-              className="point-popup__delete"
-              disabled={isLoading}
-              onClick={() => {
-                void deletePoint({ id: point.id, mapId: point.mapId })
-              }}
-            >
-              Удалить
-            </button>
+            {canDelete ? (
+              <button
+                type="button"
+                className="point-popup__delete"
+                disabled={isLoading}
+                onClick={() => {
+                  void deletePoint({ id: point.id, mapId: point.mapId })
+                }}
+              >
+                Удалить
+              </button>
+            ) : null}
           </div>
         </Popup>
       </Marker>
