@@ -112,6 +112,9 @@ export function addPoint(
   if (!name) {
     throw new Error('Укажите название точки')
   }
+  if (isPointNameTaken(point.mapId, name)) {
+    throw new Error('Точка с таким названием уже есть на этой карте')
+  }
   const record = normalizePoint({
     id: point.id ?? crypto.randomUUID(),
     mapId: point.mapId,
@@ -137,6 +140,21 @@ export function deletePoint(id: string): string {
 
 export function getCustomPoints(): MapPoint[] {
   return getAllPoints().filter((p) => !isRepoPoint(p.id))
+}
+
+export function isPointNameTaken(mapId: MapId, name: string): boolean {
+  const normalized = name.trim().toLocaleLowerCase('ru')
+  if (!normalized) return false
+  return getPointsByMap(mapId).some(
+    (p) => p.name.trim().toLocaleLowerCase('ru') === normalized,
+  )
+}
+
+/** Removes all locally added points; keeps points from points.json. */
+export function clearCustomPoints(): number {
+  const before = getCustomPoints().length
+  writeAll(loadSeed())
+  return before
 }
 
 /** Pretty JSON of only locally added points (not already in the repo seed). */

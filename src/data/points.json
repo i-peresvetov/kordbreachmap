@@ -16,5 +16,104 @@
     "documentType": "financial",
     "name": "3 этаж трёхэтажного общежития (комната 304)",
     "createdAt": "2026-08-05T18:48:51.399Z"
+  },
+  {
+    "id": "33a5770b-b895-45b2-9347-4171f0bde29a",
+    "mapId": "customs",
+    "x": 2414.5,
+    "y": 1323.5,
+    "documentType": "financial",
+    "name": "3 этаж склада 17",
+    "createdAt": "2026-08-05T20:32:16.715Z"
+  },
+  {
+    "id": "697a591a-e68f-4063-8a30-2e8d55ee05a8",
+    "mapId": "customs",
+    "x": 3482.625,
+    "y": 1178.75,
+    "documentType": "financial",
+    "name": "Времянка у таркона",
+    "createdAt": "2026-08-05T20:33:56.359Z"
+  },
+  {
+    "id": "2726cb48-42d6-486f-84cd-c307a5e03e2c",
+    "mapId": "customs",
+    "x": 1972.75,
+    "y": 317.5,
+    "documentType": "financial",
+    "name": "2 этаж трёхэтажного общежития в комнате у внешней лестницы к машине",
+    "createdAt": "2026-08-05T20:34:52.820Z"
+  },
+  {
+    "id": "c4d294fb-3bf9-4563-85b4-dc309811a0ee",
+    "mapId": "customs",
+    "x": 2384.5,
+    "y": 1648.5,
+    "documentType": "financial",
+    "name": "2 этаж библиотеки",
+    "createdAt": "2026-08-05T20:35:25.422Z"
+  },
+  {
+    "id": "f9537809-e345-4ff0-9d4e-d85f2365d0ac",
+    "mapId": "customs",
+    "x": 2380,
+    "y": 1677,
+    "documentType": "financial",
+    "name": "2 этаж библиотеки по центру",
+    "createdAt": "2026-08-05T20:38:08.063Z"
+  },
+  {
+    "id": "4f591cf7-779a-4c9d-a894-7cfdfc24c199",
+    "mapId": "customs",
+    "x": 1430.75,
+    "y": 1778.25,
+    "documentType": "financial",
+    "name": "На столе на Старой Заправке",
+    "createdAt": "2026-08-05T20:38:24.941Z"
+  },
+  {
+    "id": "52ff2296-f461-40af-a093-503b84174fc3",
+    "mapId": "customs",
+    "x": 1643,
+    "y": 1363.5,
+    "documentType": "financial",
+    "name": "3 этаж здания с изображением Винни-Пуха в офисе",
+    "createdAt": "2026-08-05T20:39:23.976Z"
+  },
+  {
+    "id": "79f1cf7b-89c5-4d9d-9235-48f4f0bfa6cc",
+    "mapId": "customs",
+    "x": 1807.75,
+    "y": 471.5,
+    "documentType": "financial",
+    "name": "Двухэтажное общежитие в комнате запертой на «Ключ от проходной общежития»",
+    "createdAt": "2026-08-05T20:39:48.480Z"
+  },
+  {
+    "id": "9a60ccb2-511f-4a08-9587-47a884c7a94d",
+    "mapId": "customs",
+    "x": 2443.25,
+    "y": 1494,
+    "documentType": "financial",
+    "name": "Времянка рядом с Библиотекой (Ближайшая к Складу 17)",
+    "createdAt": "2026-08-05T20:40:15.857Z"
+  },
+  {
+    "id": "13c3caf6-1ec3-4ba2-a880-ad1ba58b7d78",
+    "mapId": "customs",
+    "x": 3457.25,
+    "y": 1507.25,
+    "documentType": "financial",
+    "name": "2 этаж офисов Таркона",
+    "createdAt": "2026-08-05T20:40:37.527Z"
+  },
+  {
+    "id": "09ae25cd-661d-439f-bd28-278bf59dc6ac",
+    "mapId": "customs",
+    "x": 2322,
+    "y": 1301.5,
+    "documentType": "financial",
+    "name": "2 этаж котельной в помещении запертой на «Ключ от кабинета директора предприятия»",
+    "createdAt": "2026-08-05T20:41:01.564Z"
   }
 ]

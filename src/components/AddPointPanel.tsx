@@ -5,6 +5,7 @@ import {
   getDocumentTypesForMap,
   type DocumentTypeId,
 } from '../data/documentTypes'
+import { isPointNameTaken } from '../lib/pointsStorage'
 import { screenshotDir } from '../lib/screenshotPath'
 
 export type DraftCoords = { x: number; y: number }
@@ -64,6 +65,10 @@ export function AddPointPanel({
       setError('Укажите название точки')
       return
     }
+    if (isPointNameTaken(mapId, trimmed)) {
+      setError('Точка с таким названием уже есть на этой карте')
+      return
+    }
     try {
       await addPoint({
         mapId,
@@ -75,7 +80,11 @@ export function AddPointPanel({
       setName('')
       onSaved()
     } catch (err) {
-      setError(String(err))
+      const message =
+        err && typeof err === 'object' && 'error' in err
+          ? String((err as { error: string }).error)
+          : String(err)
+      setError(message)
     }
   }
 

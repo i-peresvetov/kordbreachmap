@@ -40,12 +40,15 @@ export const pointsApi = createApi({
           return {
             error: {
               status: 'CUSTOM_ERROR',
-              error: String(error),
+              error: error instanceof Error ? error.message : String(error),
             },
           }
         }
       },
-      invalidatesTags: (_result, _err, arg) => [{ type: 'Points', id: arg.mapId }],
+      invalidatesTags: (_result, _err, arg) => [
+        { type: 'Points', id: arg.mapId },
+        { type: 'Points', id: 'CUSTOM' },
+      ],
     }),
     deletePoint: build.mutation<{ id: string; mapId: MapId }, { id: string; mapId: MapId }>({
       async queryFn({ id, mapId }) {
@@ -61,7 +64,31 @@ export const pointsApi = createApi({
           }
         }
       },
-      invalidatesTags: (_result, _err, arg) => [{ type: 'Points', id: arg.mapId }],
+      invalidatesTags: (_result, _err, arg) => [
+        { type: 'Points', id: arg.mapId },
+        { type: 'Points', id: 'CUSTOM' },
+      ],
+    }),
+    getCustomCount: build.query<number, void>({
+      async queryFn() {
+        return { data: storage.getCustomPoints().length }
+      },
+      providesTags: [{ type: 'Points', id: 'CUSTOM' }],
+    }),
+    clearCustomPoints: build.mutation<number, void>({
+      async queryFn() {
+        try {
+          return { data: storage.clearCustomPoints() }
+        } catch (error) {
+          return {
+            error: {
+              status: 'CUSTOM_ERROR',
+              error: String(error),
+            },
+          }
+        }
+      },
+      invalidatesTags: ['Points'],
     }),
   }),
 })
@@ -70,4 +97,6 @@ export const {
   useGetPointsQuery,
   useAddPointMutation,
   useDeletePointMutation,
+  useGetCustomCountQuery,
+  useClearCustomPointsMutation,
 } = pointsApi

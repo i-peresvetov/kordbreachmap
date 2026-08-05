@@ -55,7 +55,7 @@ export default function App() {
               ? 'Выберите тип документации'
               : isLoading
                 ? 'Загрузка точек…'
-                : `Точек: ${points.length}`}
+                : `На карте: ${points.length}`}
         </span>
       </header>
 
