@@ -115,5 +115,86 @@
     "documentType": "financial",
     "name": "2 этаж котельной в помещении запертой на «Ключ от кабинета директора предприятия»",
     "createdAt": "2026-08-05T20:41:01.564Z"
+  },
+  {
+    "id": "af11fddd-0803-4135-af1e-f95184b60a12",
+    "mapId": "customs",
+    "x": 2009,
+    "y": 335,
+    "documentType": "tan-folder",
+    "name": "2 этаж трёхэтажного общежития (комната 212)",
+    "createdAt": "2026-08-05T20:52:47.197Z"
+  },
+  {
+    "id": "e172693b-625b-470a-895a-7bffb1434005",
+    "mapId": "customs",
+    "x": 2325,
+    "y": 1291.375,
+    "documentType": "tan-folder",
+    "name": "2 этаж котельной в помещении запертой на «Ключ от кабинета директора предприятия» (П)",
+    "createdAt": "2026-08-05T20:53:30.017Z"
+  },
+  {
+    "id": "6b29e2d4-db97-4bfb-a3a9-612e87c58996",
+    "mapId": "customs",
+    "x": 2237,
+    "y": 1386,
+    "documentType": "tan-folder",
+    "name": "В здании котельной в СТО",
+    "createdAt": "2026-08-05T20:53:51.858Z"
+  },
+  {
+    "id": "8d12eb49-11f8-4690-8736-e3aa981a5c5f",
+    "mapId": "customs",
+    "x": 2373,
+    "y": 1707.5,
+    "documentType": "tan-folder",
+    "name": "2 этаж в Библиотеке",
+    "createdAt": "2026-08-05T20:54:15.492Z"
+  },
+  {
+    "id": "a9907840-478f-4fe3-ab0f-1ddc4f2af6bf",
+    "mapId": "customs",
+    "x": 2369.5,
+    "y": 1725,
+    "documentType": "tan-folder",
+    "name": "2 этаж в Библиотеке (2)",
+    "createdAt": "2026-08-05T20:54:36.760Z"
+  },
+  {
+    "id": "26c379b2-1fb5-466e-b1d6-19e50c3b6a40",
+    "mapId": "customs",
+    "x": 2569,
+    "y": 1324,
+    "documentType": "tan-folder",
+    "name": "В одном из жилых помещений Склада 17",
+    "createdAt": "2026-08-05T20:55:07.705Z"
+  },
+  {
+    "id": "3afd1752-43c9-4e9f-808c-c0ad26ebd735",
+    "mapId": "customs",
+    "x": 3458,
+    "y": 1519,
+    "documentType": "tan-folder",
+    "name": "2 этаж закрытых офисов Таркона",
+    "createdAt": "2026-08-05T20:55:40.684Z"
+  },
+  {
+    "id": "c0fa3297-6678-4931-8872-1a390896ab93",
+    "mapId": "customs",
+    "x": 1434.5,
+    "y": 1759,
+    "documentType": "tan-folder",
+    "name": "На входе рядом со шкафом на Старой Заправке",
+    "createdAt": "2026-08-05T20:56:07.581Z"
+  },
+  {
+    "id": "264c641e-cc0c-43df-8c32-db5efd53f5e1",
+    "mapId": "customs",
+    "x": 1759,
+    "y": 435,
+    "documentType": "tan-folder",
+    "name": "216 комната двухэтажного общежития",
+    "createdAt": "2026-08-05T20:56:45.727Z"
   }
 ]

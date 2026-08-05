@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Marker, Popup } from 'react-leaflet'
+import { Marker, Popup, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { isRepoPoint, type MapPoint } from '../lib/pointsStorage'
 import { getDocumentType } from '../data/documentTypes'
@@ -32,6 +32,9 @@ export function PointMarker({ point }: Props) {
   return (
     <>
       <Marker position={wikiToLatLng(point.x, point.y)} icon={icon}>
+        <Tooltip direction="top" offset={[0, -18]} opacity={1} className="point-tooltip">
+          {point.name}
+        </Tooltip>
         <Popup>
           <div className="point-popup">
             <div className="point-popup__header">

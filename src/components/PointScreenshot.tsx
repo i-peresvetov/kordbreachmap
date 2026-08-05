@@ -10,53 +10,70 @@ type Props = {
   onOpen?: (src: string) => void
 }
 
+type Status = 'loading' | 'ready' | 'missing'
+
 /** Loads screenshot from public/screenshots/{mapId}/{name}.{ext} if the file exists. */
 export function PointScreenshot({ mapId, name, alt, className, onOpen }: Props) {
   const candidates = screenshotUrls(mapId, name)
   const [index, setIndex] = useState(0)
-  const [missing, setMissing] = useState(candidates.length === 0)
+  const [status, setStatus] = useState<Status>(
+    candidates.length === 0 ? 'missing' : 'loading',
+  )
 
   useEffect(() => {
     setIndex(0)
-    setMissing(candidates.length === 0)
+    setStatus(candidates.length === 0 ? 'missing' : 'loading')
   }, [mapId, name, candidates.length])
 
-  if (missing || !candidates[index]) return null
+  if (status === 'missing' || candidates.length === 0) return null
 
   const src = candidates[index]
+  if (!src) return null
 
-  if (onOpen) {
-    return (
-      <button
-        type="button"
-        className="point-popup__shot-btn"
-        title="Открыть на весь экран"
-        onClick={() => onOpen(src)}
-      >
-        <img
-          className={className}
-          src={src}
-          alt={alt}
-          onError={() => {
-            const next = index + 1
-            if (next < candidates.length) setIndex(next)
-            else setMissing(true)
-          }}
-        />
-      </button>
-    )
+  function onError() {
+    const next = index + 1
+    if (next < candidates.length) {
+      setIndex(next)
+      setStatus('loading')
+    } else {
+      setStatus('missing')
+    }
   }
 
-  return (
+  const image = (
     <img
-      className={className}
+      className={`point-screenshot__img${className ? ` ${className}` : ''}${
+        status === 'ready' ? ' is-ready' : ''
+      }`}
       src={src}
       alt={alt}
-      onError={() => {
-        const next = index + 1
-        if (next < candidates.length) setIndex(next)
-        else setMissing(true)
-      }}
+      onLoad={() => setStatus('ready')}
+      onError={onError}
     />
+  )
+
+  return (
+    <div
+      className={`point-screenshot${status === 'loading' ? ' is-loading' : ''}`}
+    >
+      {status === 'loading' ? (
+        <div className="point-screenshot__skeleton" aria-hidden="true" />
+      ) : null}
+      {onOpen ? (
+        <button
+          type="button"
+          className="point-popup__shot-btn"
+          title="Открыть на весь экран"
+          disabled={status !== 'ready'}
+          onClick={() => {
+            if (status === 'ready') onOpen(src)
+          }}
+        >
+          {image}
+        </button>
+      ) : (
+        image
+      )}
+    </div>
   )
 }
