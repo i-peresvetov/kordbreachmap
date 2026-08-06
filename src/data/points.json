@@ -655,5 +655,131 @@
     "documentType": "classified",
     "name": "Комната на 2 этаже в 1 ангаре на базе Отступников",
     "createdAt": "2026-08-06T09:40:02.441Z"
+  },
+  {
+    "id": "9e00ff40-3dd2-42c5-b316-2bfd719b36cb",
+    "mapId": "reserve",
+    "x": 2586,
+    "y": 1415,
+    "documentType": "black-folder",
+    "name": "Комната РБ-ОБ",
+    "createdAt": "2026-08-06T15:02:13.880Z"
+  },
+  {
+    "id": "0724c17e-af95-43d9-b7f6-2782fce83140",
+    "mapId": "reserve",
+    "x": 1999,
+    "y": 498,
+    "documentType": "black-folder",
+    "name": "Комната коменданта в Королеве",
+    "createdAt": "2026-08-06T15:03:43.300Z"
+  },
+  {
+    "id": "3fd866c3-5b32-460a-9166-1e27a860fc8c",
+    "mapId": "reserve",
+    "x": 1649,
+    "y": 1449,
+    "documentType": "black-folder",
+    "name": "На третьем этаже чёрного коня (комната с компьютерами)",
+    "createdAt": "2026-08-06T15:04:23.180Z"
+  },
+  {
+    "id": "23637f04-d63d-4a7e-84fe-846c27cc6ff5",
+    "mapId": "reserve",
+    "x": 2002,
+    "y": 452,
+    "documentType": "black-folder",
+    "name": "В комнате на РЛС рядом с серверной (необходим ключ Ключ РБ-РЛСА)",
+    "createdAt": "2026-08-06T15:05:00.042Z"
+  },
+  {
+    "id": "69811328-610f-4201-92fb-994dfffeb12f",
+    "mapId": "reserve",
+    "x": 4385,
+    "y": 2465.5,
+    "documentType": "black-folder",
+    "name": "В подвалах под Чёрным Слоном",
+    "createdAt": "2026-08-06T15:06:37.218Z"
+  },
+  {
+    "id": "5d17a9fe-425f-48a8-aaa8-09266b3e697e",
+    "mapId": "reserve",
+    "x": 4315.75,
+    "y": 2237,
+    "documentType": "tan-folder",
+    "name": "В центральном офисе",
+    "createdAt": "2026-08-06T15:07:36.161Z"
+  },
+  {
+    "id": "efca83aa-fe3a-4a7f-881a-2fa93ac28654",
+    "mapId": "reserve",
+    "x": 4351.5,
+    "y": 2239.25,
+    "documentType": "tan-folder",
+    "name": "В центральном офисе 2",
+    "createdAt": "2026-08-06T15:08:57.628Z"
+  },
+  {
+    "id": "4c5ff0fc-7ab0-43d4-a6ef-b5fcc0f85594",
+    "mapId": "reserve",
+    "x": 2044.6268104476926,
+    "y": 497.4502774917223,
+    "documentType": "tan-folder",
+    "name": "Королева, рядом с серверной (необходим ключ Ключ РБ-РЛСА)",
+    "createdAt": "2026-08-06T15:09:45.520Z"
+  },
+  {
+    "id": "310a0f72-e858-4e5e-a119-7df97630909b",
+    "mapId": "reserve",
+    "x": 1581.5,
+    "y": 778,
+    "documentType": "tan-folder",
+    "name": "1 этаж небольшого здания",
+    "createdAt": "2026-08-06T15:10:24.960Z"
+  },
+  {
+    "id": "4b25fec4-7e55-498c-930e-7fb58447ebd4",
+    "mapId": "streets",
+    "x": 3513,
+    "y": 3907.25,
+    "documentType": "financial",
+    "name": "В здании Cardinal «Unity Bank»",
+    "createdAt": "2026-08-06T15:11:43.543Z"
+  },
+  {
+    "id": "c1813163-6a7a-46be-b26f-cc6ab34d006d",
+    "mapId": "streets",
+    "x": 3827.5,
+    "y": 4185.25,
+    "documentType": "financial",
+    "name": "В офисе TerraGroup в ЖК Cardinal",
+    "createdAt": "2026-08-06T15:13:26.199Z"
+  },
+  {
+    "id": "307e3ca7-ff1e-4dbb-9906-401fd7773714",
+    "mapId": "streets",
+    "x": 3832,
+    "y": 4241,
+    "documentType": "handbook",
+    "name": "Офис TerraGroup (комната охраны) в здании Cardinal",
+    "createdAt": "2026-08-06T15:38:31.007Z"
+  },
+  {
+    "id": "38435103-3819-489f-acfb-a365b9cd56dd",
+    "mapId": "streets",
+    "x": 5226,
+    "y": 2394,
+    "documentType": "handbook",
+    "name": "2 этаж Фин. учреждения",
+    "createdAt": "2026-08-06T15:40:02.337Z"
+  },
+  {
+    "id": "02b79491-9ce6-417d-a3a8-65f92b25ce00",
+    "mapId": "streets",
+    "x": 4525,
+    "y": 3414.5,
+    "documentType": "financial",
+    "name": "Кабинет дантиста",
+    "createdAt": "2026-08-06T15:40:44.213Z"
   }
 ]
