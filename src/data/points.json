@@ -646,5 +646,14 @@
     "documentType": "medical",
     "name": "Офис TerraGroup на 2 этаже (помещение с мед. сумками)",
     "createdAt": "2026-08-06T09:37:22.783Z"
+  },
+  {
+    "id": "ffd1b620-1fc0-419a-a381-18cbd0cbb3b8",
+    "mapId": "lighthouse",
+    "x": 977.5,
+    "y": 2749.17893855174,
+    "documentType": "classified",
+    "name": "Комната на 2 этаже в 1 ангаре на базе Отступников",
+    "createdAt": "2026-08-06T09:40:02.441Z"
   }
 ]
