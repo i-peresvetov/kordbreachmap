@@ -5,6 +5,9 @@ import {
   useClearCustomPointsMutation,
   useGetCustomCountQuery,
 } from '../features/points/pointsApi'
+import { FloatingTooltip } from './FloatingTooltip'
+
+const CUSTOM_POINTS_FILENAME = 'custom-points.json'
 
 export function ExportPointsButton() {
   const [status, setStatus] = useState<string | null>(null)
@@ -44,7 +47,7 @@ export function ExportPointsButton() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'custom-points.json'
+    a.download = CUSTOM_POINTS_FILENAME
     a.click()
     URL.revokeObjectURL(url)
     flash(`Скачано новых: ${custom.length}`)
@@ -61,20 +64,46 @@ export function ExportPointsButton() {
       <span className="export-points__count">
         Локально: <strong>{customCount}</strong>
       </span>
-      <button type="button" className="btn btn--ghost" onClick={() => void copyToClipboard()}>
-        Копировать новые точки
-      </button>
-      <button type="button" className="btn btn--ghost" onClick={() => downloadFile()}>
-        Скачать новые точки
-      </button>
-      <button
-        type="button"
-        className="btn btn--danger"
-        disabled={customCount === 0 || clearing}
-        onClick={() => setConfirmOpen(true)}
+      <FloatingTooltip
+        placement="bottom"
+        delayMs={450}
+        text="Скопировать новые локальные точки в буфер обмена для передачи в репозиторий"
       >
-        Очистить локальные
-      </button>
+        <button
+          type="button"
+          className="btn btn--ghost"
+          onClick={() => void copyToClipboard()}
+        >
+          Копировать
+        </button>
+      </FloatingTooltip>
+      <FloatingTooltip
+        placement="bottom"
+        delayMs={450}
+        text={`Скачать новые локальные точки в виде ${CUSTOM_POINTS_FILENAME} для передачи в репозиторий`}
+      >
+        <button
+          type="button"
+          className="btn btn--ghost"
+          onClick={() => downloadFile()}
+        >
+          Скачать
+        </button>
+      </FloatingTooltip>
+      <FloatingTooltip
+        placement="bottom"
+        delayMs={450}
+        text="Удалить все добавленные локальные точки из браузера"
+      >
+        <button
+          type="button"
+          className="btn btn--danger"
+          disabled={customCount === 0 || clearing}
+          onClick={() => setConfirmOpen(true)}
+        >
+          Очистить
+        </button>
+      </FloatingTooltip>
 
       {status
         ? createPortal(
