@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MapId } from '../data/maps'
-import { screenshotUrls } from '../lib/screenshotPath'
+import { screenshotUrl } from '../lib/screenshotPath'
 
 type Props = {
   mapId: MapId
@@ -14,7 +14,7 @@ type Props = {
 
 type Status = 'loading' | 'ready' | 'missing'
 
-/** Loads screenshot from public/screenshots/{mapId}/{name}.{ext} if the file exists. */
+/** Loads the known screenshot file for a point (single request). */
 export function PointScreenshot({
   mapId,
   name,
@@ -24,43 +24,26 @@ export function PointScreenshot({
   onReady,
   onMissing,
 }: Props) {
-  const candidates = screenshotUrls(mapId, name)
-  const [index, setIndex] = useState(0)
-  const [status, setStatus] = useState<Status>(
-    candidates.length === 0 ? 'missing' : 'loading',
-  )
+  const src = screenshotUrl(mapId, name)
+  const [status, setStatus] = useState<Status>(src ? 'loading' : 'missing')
   const onReadyRef = useRef(onReady)
   const onMissingRef = useRef(onMissing)
   onReadyRef.current = onReady
   onMissingRef.current = onMissing
 
   useEffect(() => {
-    setIndex(0)
-    setStatus(candidates.length === 0 ? 'missing' : 'loading')
-  }, [mapId, name, candidates.length])
-
-  const src = candidates[index]
+    setStatus(src ? 'loading' : 'missing')
+  }, [src])
 
   useEffect(() => {
     if (status === 'ready' && src) onReadyRef.current?.(src)
     if (status === 'missing') onMissingRef.current?.()
   }, [status, src])
 
-  function onError() {
-    const next = index + 1
-    if (next < candidates.length) {
-      setIndex(next)
-      setStatus('loading')
-    } else {
-      setStatus('missing')
-    }
-  }
-
   function markReady() {
     setStatus('ready')
   }
 
-  /** Cached images may skip onLoad — check complete after mount. */
   function bindImg(img: HTMLImageElement | null) {
     if (!img || status === 'ready') return
     if (img.complete && img.naturalWidth > 0) {
@@ -79,7 +62,7 @@ export function PointScreenshot({
       src={src}
       alt={alt}
       onLoad={markReady}
-      onError={onError}
+      onError={() => setStatus('missing')}
     />
   )
 
