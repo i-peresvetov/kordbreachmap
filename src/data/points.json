@@ -737,14 +737,15 @@
     "name": "1 этаж небольшого здания",
     "createdAt": "2026-08-06T15:10:24.960Z"
   },
+
   {
-    "id": "4b25fec4-7e55-498c-930e-7fb58447ebd4",
+    "id": "21e69617-d45d-4279-aeb9-216d35a9e0aa",
     "mapId": "streets",
-    "x": 3513,
-    "y": 3907.25,
+    "x": 3751,
+    "y": 3920.040933346591,
     "documentType": "financial",
     "name": "В здании Cardinal «Unity Bank»",
-    "createdAt": "2026-08-06T15:11:43.543Z"
+    "createdAt": "2026-08-06T20:46:01.964Z"
   },
   {
     "id": "c1813163-6a7a-46be-b26f-cc6ab34d006d",

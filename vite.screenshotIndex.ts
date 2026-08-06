@@ -6,7 +6,17 @@ const VIRTUAL_ID = 'virtual:screenshot-index'
 const RESOLVED_ID = `\0${VIRTUAL_ID}`
 const ALLOWED_EXTS = new Set(['png', 'jpg', 'jpeg', 'webp', 'gif'])
 
-/** Scan public/screenshots → { "mapId/point name": "jpg" } */
+/** Prefer modern/smaller formats when several files share the same stem. */
+const EXT_PRIORITY: Record<string, number> = {
+  webp: 5,
+  avif: 4,
+  jpg: 3,
+  jpeg: 3,
+  png: 2,
+  gif: 1,
+}
+
+/** Scan public/screenshots → { "mapId/point name": "webp" } */
 export function scanScreenshotIndex(screenshotsDir: string): Record<string, string> {
   const index: Record<string, string> = {}
   let mapDirs: string[]
@@ -24,7 +34,11 @@ export function scanScreenshotIndex(screenshotsDir: string): Record<string, stri
       const ext = extname(file).slice(1).toLowerCase()
       if (!ALLOWED_EXTS.has(ext)) continue
       const name = basename(file, extname(file))
-      index[`${mapId}/${name}`] = ext
+      const key = `${mapId}/${name}`
+      const prev = index[key]
+      if (!prev || (EXT_PRIORITY[ext] ?? 0) > (EXT_PRIORITY[prev] ?? 0)) {
+        index[key] = ext
+      }
     }
   }
   return index

@@ -1,7 +1,7 @@
 {
   "name": "tarkov-maps",
   "private": true,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,8 @@
     "postbuild": "node scripts/copy-404.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
-    "download-maps": "node scripts/download-maps.mjs"
+    "download-maps": "node scripts/download-maps.mjs",
+    "screenshots:webp": "node scripts/convert-screenshots-webp.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
     "oxlint": "^1.75.0",
+    "sharp": "^0.35.3",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   }

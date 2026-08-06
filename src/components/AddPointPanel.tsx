@@ -130,7 +130,7 @@ export function AddPointPanel({
         <p className="add-panel__hint">
           Скриншот: файл с таким же именем в{' '}
           <code>{screenshotDir(mapId)}/</code>
-          {' '}(png / jpg / webp)
+          {' '}(лучше jpg/png — потом <code>npm run screenshots:webp</code>)
         </p>
         {error ? <p className="add-panel__error">{error}</p> : null}
         <div className="add-panel__actions">
