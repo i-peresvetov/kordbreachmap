@@ -322,5 +322,41 @@
     "documentType": "classified",
     "name": "Подбитая машина рядом с домом диких",
     "createdAt": "2026-08-05T22:46:10.873Z"
+  },
+  {
+    "id": "135587e3-d6c1-4c5b-9b0e-5f44eeeb5d5c",
+    "mapId": "shoreline",
+    "x": 3922,
+    "y": 2839.5,
+    "documentType": "classified",
+    "name": "В одном из ангаров на Базе Контрабандистов",
+    "createdAt": "2026-08-05T23:14:52.591Z"
+  },
+  {
+    "id": "fd5e620f-ecaa-46c4-8dde-ae6668d1f23a",
+    "mapId": "shoreline",
+    "x": 2738,
+    "y": 2522.25,
+    "documentType": "classified",
+    "name": "В Санатории в административном корпусе в комнате с открытым сейфом",
+    "createdAt": "2026-08-05T23:17:41.402Z"
+  },
+  {
+    "id": "e2df9307-d2c6-4156-b7b0-19e8ef9dc02a",
+    "mapId": "shoreline",
+    "x": 2622.25,
+    "y": 1392.25,
+    "documentType": "classified",
+    "name": "На 1 этаже ГЭС в комнате смежной с убежищем Чемпиона Арены",
+    "createdAt": "2026-08-05T23:23:45.827Z"
+  },
+  {
+    "id": "7487f4ce-711f-4754-9b3a-80584248aeb4",
+    "mapId": "shoreline",
+    "x": 2730.25,
+    "y": 2386.75,
+    "documentType": "classified",
+    "name": "3 этаж восточного корпуса Санатория",
+    "createdAt": "2026-08-05T23:25:33.900Z"
   }
 ]
