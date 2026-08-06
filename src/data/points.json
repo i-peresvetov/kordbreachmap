@@ -538,5 +538,113 @@
     "documentType": "tan-folder",
     "name": "Офис завода на 3 этаже в комнате с сейфом",
     "createdAt": "2026-08-06T08:06:28.723Z"
+  },
+  {
+    "id": "213be1f6-c82a-4034-9a46-17f4114f041a",
+    "mapId": "ground-zero",
+    "x": 2275,
+    "y": 3449.184014822711,
+    "documentType": "handbook",
+    "name": "Ресторан «Olive» на 2 этаже",
+    "createdAt": "2026-08-06T08:19:18.655Z"
+  },
+  {
+    "id": "aae3a5a4-0fbe-4ab7-8af6-4045be9a2941",
+    "mapId": "ground-zero",
+    "x": 3818,
+    "y": 4282.402294474479,
+    "documentType": "handbook",
+    "name": "2 этаж офиса TerraGroup, лавка в тупике",
+    "createdAt": "2026-08-06T08:22:33.448Z"
+  },
+  {
+    "id": "347ddc1e-39b1-43a7-8ed5-b882c2b09f77",
+    "mapId": "ground-zero",
+    "x": 3922,
+    "y": 4546.569811416533,
+    "documentType": "handbook",
+    "name": "2 этаж офиса TerraGroup на стойке ресепшена",
+    "createdAt": "2026-08-06T08:23:24.298Z"
+  },
+  {
+    "id": "0a4409de-41b9-4540-b260-616a1e33d78a",
+    "mapId": "ground-zero",
+    "x": 1374.5,
+    "y": 4641,
+    "documentType": "handbook",
+    "name": "Будка охраны рядом с выходом «Проспект Мира»",
+    "createdAt": "2026-08-06T08:29:43.489Z"
+  },
+  {
+    "id": "f61affd1-37d4-47b1-8bc0-c4bba5b736b7",
+    "mapId": "ground-zero",
+    "x": 3285,
+    "y": 4381.189725627554,
+    "documentType": "medical",
+    "name": "Кафетерий рядом с офисом TerraGroup",
+    "createdAt": "2026-08-06T09:20:12.694Z"
+  },
+  {
+    "id": "ccac8794-43f8-4b16-8435-56a1c8ba5e7f",
+    "mapId": "ground-zero",
+    "x": 2393,
+    "y": 3858.1662478743115,
+    "documentType": "medical",
+    "name": "В здании «Oasis» на 2 этаже",
+    "createdAt": "2026-08-06T09:21:01.791Z"
+  },
+  {
+    "id": "88bd7afa-ff7e-4d6f-afb9-758faffc16b3",
+    "mapId": "ground-zero",
+    "x": 3728,
+    "y": 4677.236681134039,
+    "documentType": "medical",
+    "name": "2ой этаж офиса TerraGroup (помещение где выполняется квест Механика «Спасение крота»)",
+    "createdAt": "2026-08-06T09:22:27.238Z"
+  },
+  {
+    "id": "1af2af5e-e45f-4ade-95be-8457a3961073",
+    "mapId": "ground-zero",
+    "x": 3675,
+    "y": 4643.21510698241,
+    "documentType": "medical",
+    "name": "2 этаж офиса TerraGroup (помещение где выполняется квест Механика «Спасение крота»)",
+    "createdAt": "2026-08-06T09:24:32.491Z"
+  },
+  {
+    "id": "033db2f5-c661-4671-879c-a303de8d9d52",
+    "mapId": "ground-zero",
+    "x": 3669,
+    "y": 4586.1789385517395,
+    "documentType": "handbook",
+    "name": "Второй этаж офиса TerraGroup (помещение где выполняется квест Механика «Спасение крота»)",
+    "createdAt": "2026-08-06T09:25:03.001Z"
+  },
+  {
+    "id": "e33f532a-96d2-49ab-803e-766f69f42ded",
+    "mapId": "ground-zero",
+    "x": 3656,
+    "y": 4454.201781771111,
+    "documentType": "handbook",
+    "name": "2 этаж офиса TerraGroup (помещение с мед. сумками)",
+    "createdAt": "2026-08-06T09:36:03.485Z"
+  },
+  {
+    "id": "73d8d3c1-f9db-4472-a817-a5bafc2f3910",
+    "mapId": "ground-zero",
+    "x": 3740,
+    "y": 4314.112947029113,
+    "documentType": "handbook",
+    "name": "2ой этаж офиса TerraGroup (помещение с мед. сумками)",
+    "createdAt": "2026-08-06T09:36:38.352Z"
+  },
+  {
+    "id": "90dd5f4c-e2d3-43aa-b15a-1c37eec6d36c",
+    "mapId": "ground-zero",
+    "x": 3656,
+    "y": 4507.235412066296,
+    "documentType": "medical",
+    "name": "Офис TerraGroup на 2 этаже (помещение с мед. сумками)",
+    "createdAt": "2026-08-06T09:37:22.783Z"
   }
 ]
