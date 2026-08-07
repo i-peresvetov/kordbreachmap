@@ -782,5 +782,23 @@
     "documentType": "financial",
     "name": "Кабинет дантиста",
     "createdAt": "2026-08-06T15:40:44.213Z"
+  },
+  {
+    "id": "d54d579a-a796-4038-95e7-725a2529e6fe",
+    "mapId": "shoreline",
+    "x": 1478.25,
+    "y": 1666.5,
+    "documentType": "classified",
+    "name": "На крыльце коттеджа",
+    "createdAt": "2026-08-07T21:03:50.347Z"
+  },
+  {
+    "id": "8d407b57-05f0-4b7b-b071-f51198be22fc",
+    "mapId": "shoreline",
+    "x": 1477.5,
+    "y": 1734,
+    "documentType": "letter",
+    "name": "На мед. припасах перед коттеджем",
+    "createdAt": "2026-08-07T21:04:21.626Z"
   }
 ]
